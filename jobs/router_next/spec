@@ -16,3 +16,4 @@ packages:
   - nginx_next
   - ruby
   - syslog_aggregator
+  - router

@@ -1,0 +1,8 @@
+---
+name: router
+dependencies:
+- ruby
+files:
+- router/{Gemfile,Gemfile.lock}
+- router/{bin,ext,lib}/**/*
+- pkg_utils/*
