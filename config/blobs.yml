@@ -579,10 +579,6 @@ login/cloudfoundry-identity-batch-1.0.0.war:
   object_id: rest/objects/4e4e78bca51e121004e4e7d51906cd0504a22403f04d
   sha: 33c619ccfa300967f7f7bdac1cf732ff57306035
   size: 24049331
-golang/go1.0.1.src.tar.gz:
-  object_id: rest/objects/4e4e78bca41e121004e4e7d517618f05060b980c0182
-  sha: fc8a6d6725f7f2bf7c94685c5fd0880c9b7f67f6
-  size: 9617092
 uaa/apache-tomcat-7.0.32.tar.gz:
   object_id: rest/objects/4e4e78bca11e122204e4e98638b763050786cb3c73e1
   sha: 94d7efcb0d2797b196b1a7d9537e3ed53f7607f4
@@ -711,10 +707,6 @@ buildpack_cache/node-0.4.7.tgz:
   object_id: rest/objects/4e4e78bca21e121004e4e7d511f553051354520be66d
   sha: e24dd19e6bc2ede02ae00cc20e8baef78b4999bc
   size: 3030731
-buildpack_cache/openjdk7-latest.tar.gz:
-  object_id: rest/objects/4e4e78bca21e121204e4e86ee151bc0513545243a168
-  sha: 650e9f70dd675d353bbb2368f003b83c625a3ea9
-  size: 45116682
 buildpack_cache/ruby_versions.yml:
   object_id: rest/objects/4e4e78bca11e122204e4e98638b76305137cd96b3efd
   sha: 8a548c5960afce5d1c5f40598df7e5b0081a4979
@@ -840,18 +832,6 @@ java/jre1.6.0_x64.tgz:
   object_id: rest/objects/4e4e78bca31e122204e4e9863b1b74051532ecb181cc
   sha: d5be7aa61a84c27c64451703404d7bddb60570fb
   size: 32071543
-buildpack_cache/openjdk6-jre-u25.tar.gz:
-  object_id: rest/objects/4e4e78bca31e121004e4e7d514745f051548c5865f17
-  sha: 338fd3f61181e4cef07ee229d3f10100af2c2f1f
-  size: 31099765
-buildpack_cache/openjdk7-jre-u7-b30.tar.gz:
-  object_id: rest/objects/4e4e78bca31e121204e4e86ee39692051548c5d56b53
-  sha: 40a9cda90dd0ab3313f6dd52949582d1aaee518b
-  size: 33459081
-buildpack_cache/openjdk8-jre-lambda-preview.tar.gz:
-  object_id: rest/objects/4e4e78bca51e122004e4e8ec684077051548c669ce7e
-  sha: 198d51abe2043cbebb0d82caa39ea9f8302f67b7
-  size: 34001909
 mongodb/mongodb-linux-i686-2.0.9.tgz:
   object_id: rest/objects/4e4e78bca61e121004e4e7d51d950e0515e06d724898
   sha: 3d24e0f8a5554747d4a6ed1e193a489d2c123074
@@ -877,13 +857,48 @@ postgresql/postgresql-9.2.4-x86_64.tar.gz:
   sha: !binary |-
     Y2YzNDBjYTUxZWNhYWZjMDRhYTlkM2M2NDkwZmI3ZDU3ZmQ1YTNiNw==
   size: 10519400
-login/cloudfoundry-login-server-1.2.1.war:
-  object_id: rest/objects/4e4e78bca61e121004e4e7d51d950e051718f3f76f91
-  sha: !binary |-
-    ODIyOGZkYWQxNDlmMzU0OTkzMjQzNzdhOGYwYTdlMDA5OTgxZjdmMQ==
-  size: 8014837
 rootfs/lucid64.tar.gz:
   object_id: rest/objects/4e4e78bca61e122204e4e98643d9ae051782c701f072
   sha: !binary |-
     YjI2MzNiMmFiNDk2NGY5MTQwMmJiMmQ4ODlmMmYxMjQ0OWE4YjgyOA==
   size: 199489185
+buildpack_cache/openjdk-1.6.0_27.tar.gz:
+  object_id: 51513056-c453-44af-a77c-1fdad381d6ad
+  sha: !binary |-
+    YTQ1YjZmODliYTU0ZDIzMGNiNDc5OTJiZDgxNzdkMjExZjY0YmQ5Mw==
+  size: 28917046
+buildpack_cache/openjdk-1.7.0_21.tar.gz:
+  object_id: c40ed53f-2fd2-433c-bf50-cae768348ccd
+  sha: !binary |-
+    OTQ5NjUyOWMzZmJiOWJiZTIyMjVkMDhmOTk5YjA3N2MyYWRjYmYxMg==
+  size: 31171473
+buildpack_cache/openjdk-1.8.0_M7.tar.gz:
+  object_id: 4a52e8ee-08c1-4dde-a4f0-cbbc96e8c393
+  sha: !binary |-
+    ZGZmZDhhYTA3NTA0NzU0ZTI1YWRmZjk1NDdkY2U2YTM2NmM0NWQxNA==
+  size: 38150032
+buildpack_cache/apache-tomcat-7.0.40.tar.gz:
+  object_id: 3094e931-972d-4430-abd5-2da9700a0151
+  sha: !binary |-
+    MmZlMTg1ODQyMDc2NDU4ZGE1N2I1NGYwYTJjYzNmNWI0MWFlMDA3ZA==
+  size: 7843733
+buildpack_cache/apache-tomcat-7.0.41.tar.gz:
+  object_id: bd326ac9-6287-4fa2-980c-966d3ad11dc6
+  sha: !binary |-
+    ODc5NzRmY2MyNDcxMWVhMjUzZmI0M2UzZGI0NTA2NjRlMDJlMWFkZg==
+  size: 7946142
+buildpack_cache/auto-reconfiguration-0.6.7.jar:
+  object_id: f793a3c6-fd8d-47af-9e90-4a966b3d2ed2
+  sha: !binary |-
+    NzI4MjI4ZjM2NDhkNjc5NzU5ZGYwNGZjZTYyMjBkNDQ2ZTVmZGQ5Zg==
+  size: 708374
+login/cloudfoundry-login-server-1.2.3.war:
+  object_id: bea085f2-feca-411d-95f1-74284778bd59
+  sha: !binary |-
+    ZDU2MDAwYzc4Nzk3OTkyODMzNzE4MjkwZTdiMDRkYmQ3ZjMwYjQ0MA==
+  size: 8036310
+golang/go1.1.1.src.tar.gz:
+  object_id: 668a3b49-03fd-4742-b5a8-f6a76b387106
+  sha: !binary |-
+    ZjM2NWFlZDgxODNlNDg3YTQ4YTY2YWNlN2JmMzZlNTk3NGRmZmJiMw==
+  size: 9045336

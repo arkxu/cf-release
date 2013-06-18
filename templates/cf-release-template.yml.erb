@@ -1,8 +1,19 @@
 ---
 <%
+  # query a path in properties, with a fallbac
+  def q(path, default)
+    here = find("properties")
+    path.split(".").each do |step|
+      return default unless here.key?(step)
+      here = here[step]
+    end
+
+    here
+  end
+
   # Add admin user with random password if it's not already there.
   # block is require to keep existing ccdb admin  and services password, or make a unique one.
-  users = find("properties").fetch("uaa", {}).fetch("scim", {}).fetch("users", []) || []
+  users = q("uaa.scim.users", [])
   admin_user = users.detect { |u| u.match("^admin\\|") }
   services_user = users.detect { |u| u.match("^services\\|") }
   users.unshift "admin|#{random_string 12, :admin}|scim.write,scim.read,openid,cloud_controller.admin" unless admin_user
@@ -17,6 +28,11 @@
     "m1.medium" => 3_840,
     "m1.large" => 7_680,
     "m2.2xlarge" => 35_020
+  }
+  ec2_disk = {
+    "m1.medium" => 390_000,
+    "m1.large" => 400_000,
+    "m2.2xlarge" => 800_000
   }
 -%>
 
@@ -43,7 +59,7 @@ update:
   canaries: 1
   canary_watch_time: 30000-600000
   update_watch_time: 30000-600000
-  max_in_flight: 4
+  max_in_flight: 1
   max_errors: 1
 
 networks:
@@ -86,7 +102,7 @@ resource_pools:
     availability_zone: <%= find('properties.template_only.aws.availability_zone') %>
 - name: large
   network: cf1
-  size: 3
+  size: <%= find('jobs.cloud_controller.instances').to_i + find('jobs.uaa.instances').to_i %>
   stemcell:
     name: bosh-stemcell
     version: latest
@@ -96,23 +112,23 @@ resource_pools:
 - name: dea
   network: cf1
 <% if production? -%>
-  size: 4
+  size: <%= find('resource_pools.dea.size') %>
 <% else -%>
-  size: 4
+  size: 8
 <% end -%>
   stemcell:
     name: bosh-stemcell
     version: latest
   cloud_properties:
 <% if production? -%>
-    instance_type: m2.2xlarge
+    instance_type: <%= find('resource_pools.dea.cloud_properties.instance_type') %>
 <% else -%>
     instance_type: m1.large
 <% end -%>
     availability_zone: <%= find('properties.template_only.aws.availability_zone') %>
 - name: router
   network: cf1
-  size: 2
+  size: <%= find('jobs.router.instances') %>
   stemcell:
     name: bosh-stemcell
     version: latest
@@ -120,7 +136,13 @@ resource_pools:
     instance_type: m1.small
     availability_zone: <%= find('properties.template_only.aws.availability_zone') %>
     elbs:
+<% if production? -%>
+  <% find('resource_pools.router.cloud_properties.elbs').each do |elb|  -%>
+  - <%= elb %>
+  <% end -%>
+<% else -%>
     - cfrouter
+<% end -%>
 
 jobs:
 - name: syslog_aggregator
@@ -131,7 +153,7 @@ jobs:
   networks:
   - name: cf1
     static_ips:
-    - <%= ip( 0, 'cf1.static') %>
+    - <%= ip(0, 'cf1.static') %>
 
 - name: nats
   template: nats
@@ -140,17 +162,17 @@ jobs:
   networks:
   - name: cf1
     static_ips:
-    - <%= ip( 1, 'cf1.static') %>
+    - <%= ip(1, 'cf1.static') %>
 
 - name: uaa
   template: uaa
-  instances: 1
+  instances: <%= find('jobs.uaa.instances') %>
   resource_pool: large
   networks:
   - name: cf1
     static_ips:
-    - <%= ip( 2, 'cf1.static') %>
-
+    - <%= ip(2, 'cf1.static') %>
+    - <%= ip(7, 'cf1.static') %>
 
 - name: login
   template: login
@@ -161,19 +183,19 @@ jobs:
 
 - name: cloud_controller
   template: cloud_controller_ng
-  instances: 2
+  instances: <%= find('jobs.cloud_controller.instances') %>
   resource_pool: large
   networks:
   - name: cf1
     static_ips:
-    - <%= ip( 3, 'cf1.static') %>
-    - <%= ip( 4, 'cf1.static') %>
+    - <%= ip(3, 'cf1.static') %>
+    - <%= ip(4, 'cf1.static') %>
   properties:
     ccdb: ccdb
 
 - name: router
   template: gorouter
-  instances: 2
+  instances: <%= find('jobs.router.instances') %>
   resource_pool: router
   networks:
   - name: cf1
@@ -181,8 +203,8 @@ jobs:
     - dns
     - gateway
     static_ips:
-    - <%= ip( 5, 'cf1.static') %>
-    - <%= ip( 6, 'cf1.static') %>
+    - <%= ip(5, 'cf1.static') %>
+    - <%= ip(6, 'cf1.static') %>
 
 - name: health_manager
   template: health_manager_next
@@ -194,13 +216,13 @@ jobs:
 - name: dea_next
   template: dea_next
 <% if production? -%>
-  instances: 4
+  instances: <%= find('jobs.dea_next.instances') %>
 <% else -%>
-  instances: 4
+  instances: 8
 <% end -%>
-  resource_pool: dea
   update:
-    max_in_flight: 2
+    max_in_flight: <%= q("dea.update.max_in_flight", 1) %>
+  resource_pool: dea
   networks:
   - name: cf1
     default:
@@ -223,10 +245,10 @@ properties:
     <%= find("properties.template_only").to_yaml.split("\n")[1..-1].map{|line| " " * 4 + line}.join("\n").gsub(/\A\s{4}/, "") %>
 
   domain: <%= find("properties.domain") %>
-  system_domain: <%= find("properties").fetch("system_domain", find("properties.domain")) %>
-  system_domain_organization: <%= (find("properties").fetch("system_domain_organization", "") || "").inspect %>
+  system_domain: <%= q("system_domain", find("properties.domain")) %>
+  system_domain_organization: <%= q("system_domain_organization", "").inspect %>
   app_domains:
-<% app_domains = find("properties").fetch("app_domains", find("properties.domain")) -%>
+<% app_domains = q("app_domains", q("domain", [])) -%>
 <% Array(app_domains).each do |domain| -%>
   - <%= domain %>
 <% end -%>
@@ -278,25 +300,29 @@ properties:
     max_staging_runtime: 900
     resource_pool:
       minimum_size: 65536
-      resource_directory_key: <%= find("properties.domain").gsub(".", "-") %>-cc-resources
+      resource_directory_key: <%= q("cc.resource_pool.resource_directory_key", "#{find("properties.domain").gsub(".", "-")}-cc-resources") %>
       fog_connection:
         provider: AWS
         aws_access_key_id: <%= find("properties.template_only.aws.access_key_id") %>
         aws_secret_access_key: <%= find("properties.template_only.aws.secret_access_key") %>
     packages:
       minimum_size: 1048576
-      app_package_directory_key: <%= find("properties.domain").gsub(".", "-") %>-cc-packages
+      app_package_directory_key: <%= q("cc.packages.app_package_directory_key", "#{find("properties.domain").gsub(".", "-")}-cc-packages") %>
       fog_connection:
         provider: AWS
         aws_access_key_id: <%= find("properties.template_only.aws.access_key_id") %>
         aws_secret_access_key: <%= find("properties.template_only.aws.secret_access_key") %>
     droplets:
       minimum_size: 1048576
-      droplet_directory_key: <%= find("properties.domain").gsub(".", "-") %>-cc-droplets
+      droplet_directory_key: <%= q("cc.droplets.droplet_directory_key", "#{find("properties.domain").gsub(".", "-")}-cc-droplets") %>
       fog_connection:
         provider: AWS
         aws_access_key_id: <%= find("properties.template_only.aws.access_key_id") %>
         aws_secret_access_key: <%= find("properties.template_only.aws.secret_access_key") %>
+      cdn:
+        uri: <%= q("cc.droplets.cdn.uri", "") %>
+        key_pair_id: <%= q("cc.droplets.cdn.key_pair_id", "") %>
+        private_key: <%= q("cc.droplets.cdn.private_key", "").inspect %>
     cc_partition: default
     quota_definitions:
       free:
@@ -330,13 +356,24 @@ properties:
   dea_next:
 <% if production? -%>
     memory_mb: <%= ec2_memory.fetch("m2.2xlarge") - 2_048 %>
+    memory_overcommit_factor: 1
+    disk_mb: <%= ec2_disk.fetch("m2.2xlarge") %>
+    disk_overcommit_factor: 1
+    num_instances: 256
 <% else -%>
     memory_mb: <%= ec2_memory.fetch("m1.large") - 1_024 %>
-<% end -%>
-    memory_overcommit_factor: 1
-    disk_mb: 16384
+    memory_overcommit_factor: 3
+    disk_mb: <%= ec2_disk.fetch("m1.large") %>
     disk_overcommit_factor: 2
     num_instances: 256
+<% end -%>
+    deny_networks:
+    - 169.254.0.0/16 # aws status endpoint
+    - 10.10.0.0/24 # bosh network
+    - 10.10.16.0/20 # cf network
+    allow_networks:
+    - 10.10.0.2/32 # Amazon DNS server
+    - 10.10.17.0/24 # DEAs
 
   service_lifecycle:
     serialization_data_server:
@@ -367,9 +404,9 @@ properties:
   login:
     protocol: https
     links:
-      home: https://console.<%= find("properties.domain") %>
-      passwd: https://console.<%= find("properties.domain") %>/password_resets/new
-      signup: https://console.<%= find("properties.domain") %>/register
+      home: <%= q("login.links.home", "https://console.#{find("properties.domain")}") %>
+      passwd: <%= q("login.links.passwd", "https://console.#{find("properties.domain")}/password_resets/new") %>
+      signup: <%= q("login.links.signup", "https://console.#{find("properties.domain")}/register") %>
 
   uaa:
     catalina_opts: -Xmx768m -XX:MaxPermSize=256m
@@ -426,7 +463,7 @@ properties:
         authorized-grant-types: authorization_code,client_credentials,password,refresh_token,implicit
         access-token-validity: 1209600
         refresh-token-validity: 1209600
-        redirect-uri: http://console.<%= find("properties.domain") %>
+        redirect-uri: <%= q("login.links.home", "https://console.#{find("properties.domain")}") %>
       support-services:
         scope: scim.write,scim.read,openid,cloud_controller.read,cloud_controller.write
         secret: <%= find("properties.uaa.clients.support-services.secret") %>
@@ -453,6 +490,13 @@ properties:
         redirect-uri: http://servicesmgmt.<%= find("properties.domain") %>/auth/cloudfoundry/callback
         override: true
         autoapprove: true
+      space-mail:
+        override: true
+        authorities: scim.read,scim.write,cloud_controller.admin
+        secret: <%= find("properties.uaa.clients.space-mail.secret") %>
+        authorized-grant-types: client_credentials
+        access-token-validity: 1209600
+        refresh-token-validity: 1209600
 
     scim:
       users:

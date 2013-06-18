@@ -2,7 +2,7 @@
 local_route: <%= spec.networks.send(properties.networks.apps).ip %>
 port: 9022 # external CC port
 pid_filename: /var/vcap/sys/run/cloud_controller_ng/cloud_controller_ng.pid
-nats_uri: nats://<%= p("nats.user") %>:<%= p("nats.password") %>@<%= p("nats.address") %>:<%= p("nats.port") %>
+message_bus_uri: nats://<%= p("nats.user") %>:<%= p("nats.password") %>@<%= p("nats.address") %>:<%= p("nats.port") %>
 
 external_domain:
   - <%= p("ccng.external_host", "ccng") %>.<%= p("domain") %>
@@ -30,6 +30,8 @@ service_lifecycle:
 nginx:
   use_nginx: <%= p("ccng.use_nginx", true) %>
   instance_socket: "/var/vcap/sys/run/cloud_controller_ng/cloud_controller.sock"
+
+index: <%= spec.index %>
 
 info:
   name: <%= p("name", "vcap") %>
@@ -115,7 +117,7 @@ quota_definitions:
   trial:
     non_basic_services_allowed: false
     total_services: 10
-    memory_limit: 512
+    memory_limit: 2048
     trial_db_allowed: true
 
 default_quota_definition: <%= p("ccng.default_quota_definition") %>
@@ -150,6 +152,12 @@ packages:
 
 droplets:
   droplet_directory_key: <%= p("ccng.droplets.droplet_directory_key") %>
+<% if_p("ccng.droplets.cdn") do %>
+  cdn:
+    uri: <%= p("ccng.droplets.cdn.uri") %>
+    key_pair_id: <%= p("ccng.droplets.cdn.key_pair_id") %>
+    private_key: <%= p("ccng.droplets.cdn.private_key").inspect %>
+<% end %>
   fog_connection:
 <% if_p("ccng.droplets.fog_connection.provider") do |provider| %>
     provider: <%= provider %>
