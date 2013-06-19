@@ -68,7 +68,7 @@ case $1 in
             exit 0
           fi
         else
-          if [ $greedy_level -eq 0]; then
+          if [ $greedy_level -eq 0 ]; then
             log_echo "ERROR: $mongodb_tmp_dir exists but not mounted to $loop_dev"
             exit 1
           else
