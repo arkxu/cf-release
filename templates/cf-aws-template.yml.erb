@@ -127,18 +127,6 @@ jobs:
   properties:
     ccdb: ccdb
 
-- name: router
-  template: gorouter
-  instances: 1
-  resource_pool: router
-  networks:
-  - name: cf1
-    default:
-    - dns
-    - gateway
-    static_ips:
-    - <%= ip( 5, 'cf1.static') %>
-
 - name:  health_manager
   template: health_manager_next
   instances: 1
@@ -164,6 +152,18 @@ jobs:
   resource_pool: common
   networks:
   - name: cf1
+
+- name: router
+  template: gorouter
+  instances: 1
+  resource_pool: router
+  networks:
+  - name: cf1
+    default:
+    - dns
+    - gateway
+    static_ips:
+    - <%= ip( 5, 'cf1.static') %>
 
 properties:
   template_only:
@@ -248,21 +248,9 @@ properties:
     disk_overcommit_factor: 4
     num_instances: 256
 
-  service_lifecycle:
-    serialization_data_server:
-    - 0.serialization-data-server.default.<%= find("name") %>.bosh
-
   syslog_aggregator:
     address: 10.10.16.10
     port: 54321
-
-  serialization_data_server:
-    upload_token: 8f7COGvTlXT7l8IzAgOHxMXurBrG364k
-    use_nginx: true
-    upload_timeout: 10
-    port: 8080
-    upload_file_expire_time: 600
-    purge_expired_interval: 30
 
   login:
     protocol: http
