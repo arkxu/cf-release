@@ -82,7 +82,8 @@ echo "Building nginx..."
     --add-module=../headers-more-v0.15rc1 \
     --add-module=../nginx_upload_module-2.2.0 \
     --add-module=../simpl-ngx_devel_kit-bc97eea \
-    --add-module=../chaoslawful-lua-nginx-module-204ce2b
+    --add-module=../chaoslawful-lua-nginx-module-204ce2b \
+    --with-cc-opt=-Wno-error
 
   make
   make install
