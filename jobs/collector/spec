@@ -7,5 +7,5 @@ templates:
 packages:
 - common
 - collector
-- ruby
+- ruby_next
 - syslog_aggregator

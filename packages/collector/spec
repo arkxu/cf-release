@@ -1,6 +1,6 @@
 ---
 name: collector
 dependencies:
-- ruby
+- ruby_next
 files:
 - collector/**/*
