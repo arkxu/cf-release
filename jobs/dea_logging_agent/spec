@@ -1,0 +1,29 @@
+---
+name: dea_logging_agent
+templates:
+  dea_logging_agent_ctl.erb: bin/dea_logging_agent_ctl
+  dea_logging_agent.json.erb: config/dea_logging_agent.json
+
+packages:
+- common
+- dea_logging_agent
+properties:
+  loggregator.debug:
+    description: boolean value to turn on verbose logging for loggregator system (dea agent & loggregator server)
+    default: false
+  loggregator.server:
+    description: loggregator server in host:port format
+  loggregator.status.user:
+    description: username used to log into varz endpoint
+  loggregator.status.password:
+    description: password used to log into varz endpoint
+  loggregator.status.port:
+    description: port used to run the varz endpoint
+  nats.user:
+    description: "Username for cc client to connect to NATS"
+  nats.password:
+    description: "Password for cc client to connect to NATS"
+  nats.address:
+    description: "IP address of Cloud Foundry NATS server"
+  nats.port:
+    description: "IP port of Cloud Foundry NATS server"

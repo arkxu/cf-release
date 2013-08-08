@@ -19,7 +19,7 @@ packages:
   - libpq
   - mysqlclient
   - sqlite
-  - ruby_next
+  - ruby
   - syslog_aggregator
 
 properties:
@@ -260,13 +260,6 @@ properties:
   description:
  login.url:
   description:
-
- vcap_redis.address:
-  description: "deprecated"
- vcap_redis.port:
-  description: "deprecated"
- vcap_redis.password:
-  description: "deprecated"
 
  syslog_aggregator:
   default: vcap.cloud_controller_ng

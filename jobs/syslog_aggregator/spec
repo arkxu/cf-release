@@ -7,11 +7,43 @@ templates:
   gzip_old_logs: bin/gzip_old_logs
   reap_old_logs: bin/reap_old_logs
   symlink_logs: bin/symlink_logs
-  nats_capture_run.erb: sv/nats_capture/run
-  nats_capture_log: sv/nats_capture/log/run
-  nats_capture_config: config/nats_capture_config
+  nats_stream_forwarder.rb: bin/nats_stream_forwarder.rb
+  nats_stream_forwarder_ctl: bin/nats_stream_forwarder_ctl
 packages:
 - common
 - syslog_aggregator
-- ruby_next
+- ruby
 - nats
+properties:
+  domain:
+    description: "DNS domain for this Cloud Foundry deployment"
+  syslog_aggregator.log_email.enabled:
+    description: "Enable Email log"
+  syslog_aggregator.log_email.from_email:
+    description: "From  email address"
+  syslog_aggregator.log_email.from_password:
+    description: "password for SMTP login"
+  syslog_aggregator.log_email.to_email:
+    description: "To email address"
+  syslog_aggregator.log_email.smtp_server:
+    description: "IP address of SMTP server"
+  syslog_aggregator.log_email.smtp_port:
+    description: "TCP port of SMTP server"
+  syslog_aggregator.log_email.smtp_domain:
+    description: "SMTP email domain"
+  syslog_aggregator.relay_host:
+    description:
+  syslog_aggregator.relay_host_port:
+    description:
+  syslog_aggregator.address:
+    description: "IP address for syslog aggregator"
+  syslog_aggregator.port:
+    description: "TCP port of syslog aggregator"
+  nats.address:
+    description: "NATS address"
+  nats.password:
+    description: "NATS password"
+  nats.port:
+    description: "NATS TCP port"
+  nats.user:
+    description: "NATS user"

@@ -2,9 +2,9 @@
 name: login
 templates:
   login_ctl.erb: bin/login_ctl
-  vcap_registrar_ctl: bin/vcap_registrar_ctl
+  cf-registrar_ctl: bin/cf-registrar_ctl
 
-  vcap_registrar.config.yml.erb: config/vcap_registrar/config.yml
+  cf-registrar.config.yml.erb: config/cf-registrar/config.yml
   login.yml.erb: config/login.yml
   varz.yml.erb: config/varz.yml
   log4j.properties.erb: config/log4j.properties
@@ -18,3 +18,43 @@ packages:
   - syslog_aggregator
   - login
   - git
+
+properties:
+  login.catalina_opts:
+    description:
+  login.links:
+    description:
+  login.port:
+    description:
+  login.uaa_base:
+    description:
+  domain:
+    description: "The domain name for this CloudFoundry deploy"
+  env.http_proxy:
+    description: "The http_proxy accross the VMs"
+  env.https_proxy:
+    description: "The https_proxy accross the VMs"
+  env.no_proxy:
+    description: "Set No_Proxy accross the VMs"
+  nats.address:
+    description: "IP address of NATS server"
+  nats.password:
+    description: "Password for NATS login"
+  nats.port:
+    description: "TCP port of NATS server"
+  nats.user:
+    description: "User name for NATS login"
+  networks.apps:
+    description: "The App network name"
+  syslog_aggregator.address:
+    description: "IP address for syslog aggregator"
+  syslog_aggregator.port:
+    description: "Port of syslog aggregator"
+  uaa.clients.login.secret:
+    description:
+  uaa.dump_requests:
+    description:
+  uaa.login.client_secret:
+    description:
+  uaa.require_https:
+    description:

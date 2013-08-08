@@ -22,9 +22,6 @@
 [submodule "src/warden"]
   path = src/warden
   url = https://github.com/cloudfoundry/warden.git
-[submodule "src/services_warden"]
-  path = src/services_warden
-  url = https://github.com/cloudfoundry/warden.git
 [submodule "src/cloud_controller"]
   path = src/cloud_controller
   url = https://github.com/cloudfoundry/cloud_controller.git
@@ -34,12 +31,30 @@
 [submodule "src/tests"]
   path = src/tests
   url = https://github.com/cloudfoundry/vcap-yeti.git
-[submodule "src/gorouter"]
-  path = src/gorouter
-  url = https://github.com/cloudfoundry/gorouter.git
 [submodule "src/logplex"]
   path = src/logplex
   url = https://github.com/cloudfoundry/logplex.git
 [submodule "src/collector"]
   path = src/collector
   url = https://github.com/cloudfoundry/collector.git
+[submodule "src/vcap-common"]
+	path = src/vcap-common
+	url = https://github.com/cloudfoundry/vcap-common.git
+[submodule "src/gorouter/src/github.com/cloudfoundry/gorouter"]
+	path = src/gorouter/src/github.com/cloudfoundry/gorouter
+	url = https://github.com/cloudfoundry/gorouter.git
+[submodule "src/gorouter/src/github.com/cloudfoundry/yagnats"]
+	path = src/gorouter/src/github.com/cloudfoundry/yagnats
+	url = https://github.com/cloudfoundry/yagnats.git
+[submodule "src/gorouter/src/github.com/cloudfoundry/go_cfmessagebus"]
+	path = src/gorouter/src/github.com/cloudfoundry/go_cfmessagebus
+	url = https://github.com/cloudfoundry/go_cfmessagebus.git
+[submodule "src/gorouter/src/github.com/cloudfoundry/gosteno"]
+	path = src/gorouter/src/github.com/cloudfoundry/gosteno
+	url = https://github.com/cloudfoundry/gosteno.git
+[submodule "src/gorouter/src/github.com/rcrowley/go-metrics"]
+	path = src/gorouter/src/github.com/rcrowley/go-metrics
+	url = https://github.com/rcrowley/go-metrics.git
+[submodule "src/gorouter/src/github.com/nu7hatch/gouuid"]
+	path = src/gorouter/src/github.com/nu7hatch/gouuid
+	url = https://github.com/nu7hatch/gouuid.git

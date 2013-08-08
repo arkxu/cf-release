@@ -67,18 +67,6 @@ java/jre-7u4-linux-x64.tar.gz:
   object_id: rest/objects/4e4e78bca41e121204e4e86ee5392104fd5426616b81
   sha: 1108d1744baa73bf6caa2adf965d0f489ea1ef60
   size: 32771159
-ruby/rubygems-1.7.2.tgz:
-  object_id: rest/objects/4e4e78bca11e122004e4e8ec64843104f30690769cd2
-  sha: d878ae52f40eb71e59708afc57303172f0327fad
-  size: 245606
-ruby/ruby-1.9.2-p180.tar.gz:
-  object_id: rest/objects/4e4e78bca21e121004e4e7d511f55304f30690c88fd9
-  sha: 6a482bc07239b37bcadf68dda63c65d20dc19ebe
-  size: 11158935
-ruby/rake-0.8.7.gem:
-  object_id: rest/objects/4e4e78bca51e121004e4e7d51906cd04f30691c45ae0
-  sha: 91daad079d404b68a7dd179716b9fdd0c195144c
-  size: 104960
 dashboard/apache-tomcat-7.0.25.tar.gz:
   object_id: rest/objects/4e4e78bca11e122004e4e8ec64843104f3069213fcb3
   sha: 642867e55cc658f6c12adf25ca1e5629c9c12aae
@@ -111,10 +99,6 @@ debian_nfs_server/nfs-kernel-server_1%3a1.2.0-4ubuntu4.1_amd64.deb:
   object_id: rest/objects/4e4e78bca41e122204e4e9863d076304f307136db190
   sha: a44b3f8319984bace61f21bb6d15cee1419e5bf3
   size: 169618
-ruby/ruby-1.8.7-p357.tar.bz2:
-  object_id: rest/objects/4e4e78bca11e121204e4e86ee1529404f3071453daff
-  sha: ba5ec0ab663976f00fb405be6cfef546bcf0e4e9
-  size: 4208157
 nats/vendor/cache/json_pure-1.6.5.gem:
   object_id: rest/objects/4e4e78bca41e122204e4e9863d076304f525f001b6d1
   sha: 739c40b6acebe9b7b3fdcaf3ff6bd4600ce3dcfb
@@ -179,46 +163,6 @@ ruby/rubygems-1.8.24.tgz:
   object_id: rest/objects/4e4e78bca41e122204e4e9863d076304fa1cc28797a9
   sha: 30f27047e74f7943117736a0d3e224994fee0905
   size: 380101
-imagemagick/freetype-2.4.10.tar.gz:
-  object_id: rest/objects/4e4e78bca31e122204e4e9863b1b7404fe8eaa91b560
-  sha: 44dba26ff965b1cd1c62e480fdefaeca62ed33da
-  size: 2006563
-imagemagick/ghostscript-9.05.tgz:
-  object_id: rest/objects/4e4e78bca61e121004e4e7d51d950e04fe8eaad1be7a
-  sha: af93787ba966360abbe085b213ec563b5db5a8cc
-  size: 32570231
-imagemagick/ghostscript-fonts-std-8.11.tar.gz:
-  object_id: rest/objects/4e4e78bca21e121204e4e86ee151bc04fe8eab6836a6
-  sha: 2a7198e8178b2e7dba87cb5794da515200b568f5
-  size: 3752871
-imagemagick/ImageMagick-6.7.9-0.tar.gz:
-  object_id: rest/objects/4e4e78bca41e121004e4e7d517618f050369d6bac7aa
-  sha: 5de140894458d331fd93fa41867c2731924c0c07
-  size: 13070869
-imagemagick/jpegsrc.v8d.tar.gz:
-  object_id: rest/objects/4e4e78bca41e122204e4e9863d076304fe8eac4be694
-  sha: f080b2fffc7581f7d19b968092ba9ebc234556ff
-  size: 991456
-imagemagick/lcms2-2.3.tar.gz:
-  object_id: rest/objects/4e4e78bca51e121004e4e7d51906cd04fe8eac9220aa
-  sha: 67d5fabda2f5777ca8387766539b9c871d993133
-  size: 4461644
-imagemagick/libiconv-1.14.tar.gz:
-  object_id: rest/objects/4e4e78bca11e121204e4e86ee1529404fe8ead308f44
-  sha: be7d67e50d72ff067b2c0291311bc283add36965
-  size: 4984397
-imagemagick/libpng-1.5.11.tar.gz:
-  object_id: rest/objects/4e4e78bca31e122004e4e8ec646e2104fe8ead9d0ee8
-  sha: 0e223e58075c4401f0018fa241a0274cd2e4c26d
-  size: 1061614
-imagemagick/libwmf-0.2.8.4.tar.gz:
-  object_id: rest/objects/4e4e78bca51e122204e4e9863f28f304fe8eade2212c
-  sha: 822ab3bd0f5e8f39ad732f2774a8e9f18fc91e89
-  size: 2169375
-imagemagick/tiff-4.0.2.tar.gz:
-  object_id: rest/objects/4e4e78bca21e121004e4e7d511f55304fe8eae1f1d51
-  sha: d84b7b33a6cfb3d15ca386c8c16b05047f8b5352
-  size: 2022814
 git/git-1.7.11.2.tar.gz:
   object_id: rest/objects/4e4e78bca61e121204e4e86eebe59104fff12d7e49c6
   sha: f67b4f6c0277250411c6872ae7b8a872ae11d313
@@ -239,10 +183,6 @@ uaa/jdk1.6.0_35.tar.gz:
   object_id: rest/objects/4e4e78bca51e121004e4e7d51906cd0507c5d83ed3ea
   sha: 47ead45c658f9c72577d202d8aa1675461ee3ad6
   size: 67126391
-ruby/ruby-1.9.3-p194.tar.gz:
-  object_id: rest/objects/4e4e78bca51e122204e4e9863f28f305057c4d82b4d3
-  sha: 31cf6bd981e4c929e5dc3bbdb341833eab1bd9f2
-  size: 12432239
 dashboard/dashboard-1.0-SNAPSHOT-2b7dcaa1.war:
   object_id: rest/objects/4e4e78bca21e122004e4e8ec647a540508acd42e228e
   sha: 08004df2a5b2a7a7e610da4ac1eaaa5a0c14ad25
@@ -292,21 +232,24 @@ uaa/cloudfoundry-identity-uaa-1.4.1.war:
   sha: f5834992f993253e54d61d3c4f6ca4cc390b641a
   size: 21351766
 buildpack_cache/ruby-1.8.7.tgz:
-  object_id: rest/objects/4e4e78bca21e122004e4e8ec647a54051479ae40fa13
-  sha: 14b819b7562e15724fc5cc96430dce643a87c1f7
-  size: 4950693
+  object_id: 0eb2f5a8-a840-4cda-a71c-d2d61ab5e8de
+  sha: !binary |-
+    YjI4ODY5YjA2NTc1YjM3ZDM3MGUzZTg1ZGRlMDQ0ZjJlYWNhNzJkMw==
+  size: 4436501
 buildpack_cache/ruby-1.9.2.tgz:
   object_id: rest/objects/4e4e78bca31e121004e4e7d514745f0514794ff3e620
   sha: 5a03121fa4de31f60a22fab4846fe820122e7811
   size: 11513584
 buildpack_cache/ruby-1.9.3.tgz:
-  object_id: rest/objects/4e4e78bca61e122004e4e8ec6b44b6051435ee30fad1
-  sha: 3749f69e1159912c6b218ace9f74700edf365537
-  size: 12217436
+  object_id: 6717cccb-db40-40e0-a351-72d7fc01c227
+  sha: !binary |-
+    ZjhhNjM2ZWE0ZmI0NWJiYmZlMzkzOWUxZWZhMTEyZmY3ZDdhZTQ4NA==
+  size: 11160879
 buildpack_cache/ruby-build-1.8.7.tgz:
-  object_id: rest/objects/4e4e78bca11e121204e4e86ee1529405147743c54adc
-  sha: 6218957abbde852dab676c7103aec37f283a3376
-  size: 4951287
+  object_id: 290ec7ae-0a31-487e-81c6-48f82fb1d843
+  sha: !binary |-
+    NWVhNWIzZDI5MjUzYzRkZTBlMWIwMzg2NGExYWIzM2FiNTVhMDVlNg==
+  size: 4435872
 buildpack_cache/ruby-build-1.9.2.tgz:
   object_id: rest/objects/4e4e78bca31e121004e4e7d514745f0514780f549dec
   sha: 11b61212e3e56ec9017311f1b4c84e9f86621bce
@@ -324,17 +267,19 @@ buildpack_cache/node-0.4.7.tgz:
   sha: e24dd19e6bc2ede02ae00cc20e8baef78b4999bc
   size: 3030731
 buildpack_cache/ruby_versions.yml:
-  object_id: rest/objects/4e4e78bca11e122204e4e98638b76305137cd96b3efd
-  sha: 8a548c5960afce5d1c5f40598df7e5b0081a4979
-  size: 43
+  object_id: 48273e57-a228-4e75-9ab4-42bc743dd0ca
+  sha: !binary |-
+    ZTQzMzViM2FiNGNiYjhkMWMwNDU2ZjhjMzYxZGJlNzNmZDZiYjYxZg==
+  size: 56
 buildpack_cache/bundler-1.3.1.tgz:
   object_id: rest/objects/4e4e78bca51e121004e4e7d51906cd05138e626d7fde
   sha: 6d2ca955af6a26341b3cc27266ec62a20d7d9a11
   size: 231
 buildpack_cache/ruby-2.0.0.tgz:
-  object_id: rest/objects/4e4e78bca31e122004e4e8ec646e2105138e6275728b
-  sha: 6874cee597937042e19dad047a93f41301311ed0
-  size: 24847042
+  object_id: 04247726-3c4c-4146-9b26-8656b3d5d71e
+  sha: !binary |-
+    MDFmMGQzNTMyZjQ3ZTU4ZWQxMzYwMzAzNDVkNTQ0ODEyZjNmYzZhZQ==
+  size: 24962033
 buildpack_cache/apache-tomcat-7.0.37.tar.gz:
   object_id: rest/objects/4e4e78bca11e121204e4e86ee15294051391912aabfc
   sha: c720975d6ebefa071eb94fdb27f13f53e8884811
@@ -355,26 +300,6 @@ buildpack_cache/rails_log_stdout.tgz:
   object_id: rest/objects/4e4e78bca11e122004e4e8ec648431051392d7483b01
   sha: c7f6b3ca602628d438b6389e61b26e206e2e3727
   size: 719
-ruby/bundler-1.3.2.gem:
-  object_id: rest/objects/4e4e78bca51e122004e4e8ec6840770513a326a6829e
-  sha: 7ea4bf5a163310c1756e3996c868cabbbf797867
-  size: 271360
-ruby/ruby-1.9.2-p320.tar.gz:
-  object_id: rest/objects/4e4e78bca61e121004e4e7d51d950e0513a326db56bb
-  sha: ead282bf780eb671a627e5e071f96c2fa4c64c1a
-  size: 11338691
-ruby/ruby-1.9.3-p392.tar.gz:
-  object_id: rest/objects/4e4e78bca61e121204e4e86eebe5910513a3270968f3
-  sha: ec75fcbd3b6b46ce6ec997ee4c86145b4abd5748
-  size: 12557294
-ruby/ruby-2.0.0-p0.tar.gz:
-  object_id: rest/objects/4e4e78bca61e122004e4e8ec6b44b60513a3274bf65f
-  sha: 5349078b65fdeea85c7217d0ca98e718d3612df4
-  size: 13608925
-ruby/rubygems-2.0.2.tgz:
-  object_id: rest/objects/4e4e78bca21e122204e4e9863926b10513a327d7f6e1
-  sha: 571c44611eb6ea9ca5d9fe14fff0f3de3f89771e
-  size: 334489
 buildpack_cache/bundler-1.3.2.tgz:
   object_id: rest/objects/4e4e78bca31e121204e4e86ee396920513f7d717207f
   sha: 6c299b755c90f186e7ce677e413e3c2a34d92f70
@@ -499,3 +424,28 @@ buildpack_cache/auto-reconfiguration-0.6.8.jar:
   sha: !binary |-
     MjY4MjYwMDM5YzZmMjU4N2M1Y2M0M2MyYjU3M2VlODhiNGRiZWMwYw==
   size: 709165
+saml_login/cloudfoundry-saml-login-server-1.3.0-SNAPSHOT.war:
+  object_id: 74eedfc9-f3f1-4497-9dc4-3a46ea501e39
+  sha: !binary |-
+    OWQwODQyNjg1MjJhMzIyNjU1N2U2ODQzY2FkN2VlZGVlYzU4NzkwMQ==
+  size: 21508295
+ruby/ruby-1.9.3-p448.tar.gz:
+  object_id: 37208aad-5274-4364-8590-c8516bc57a1b
+  sha: !binary |-
+    YzdmNzM2ZTNiYzFjYTFlNjYxOWE5MTIxODM3ZGQwODQwYWFkNzdjZQ==
+  size: 12559260
+loggregator/deaagent.gz:
+  object_id: a9ea23d3-7b15-4bba-8b75-4939ee45ddaa
+  sha: !binary |-
+    NmFmNzRjMDQ4NjUwMzRiYmM3MTU5N2I5MDk2ZTNkNTRiNzBmNDNlNw==
+  size: 1560313
+loggregator/loggregator.gz:
+  object_id: 515916a6-2a3b-4e2b-82e0-eb6f659e9475
+  sha: !binary |-
+    NmFiMTI2MzNjYWI2Zjg3ZjkxNWZjOTI5MDNkMjU1OTU2YzBjY2U3ZQ==
+  size: 1722755
+insight_agent/insight-agent-1.9.2.SR1.tar.gz:
+  object_id: f2ffcefa-c399-47cd-afbd-209b5556402a
+  sha: !binary |-
+    NDVlOGI1NmE0YzBmZDZjNTUzNWE3MmFjZjYyYzFjOTgyZjM3M2IxZg==
+  size: 26122927

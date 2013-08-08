@@ -1,0 +1,17 @@
+---
+logging:
+  file: /var/vcap/sys/log/uaa/cf-registrar.log
+  <% if properties.syslog_aggregator %>
+  syslog: vcap.uaa_cf-registrar
+  <% end %>
+  level: info
+mbus: nats://<%= properties.nats.user %>:<%= properties.nats.password %>@<%= properties.nats.address %>:<%= properties.nats.port %>
+uri:
+  - uaa.<%= properties.domain %>
+host: <%= spec.networks.send(properties.networks.apps).ip %>
+index: <%= spec.index %>
+port: <%= (properties.uaa && properties.uaa.port) ? properties.uaa.port : 8080 %>
+tags:
+  component: uaa
+varz:
+  file: /var/vcap/jobs/uaa/config/varz.yml

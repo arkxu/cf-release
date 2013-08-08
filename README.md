@@ -75,6 +75,11 @@ The components in a V2 deployment are:
 	</tr>
 </table>
 
+## Creating a release
+
+Building a CF-Release later than 99be208f requires BOSH version 1.5.0 or later.
+The latest version of BOSH CLI can be found here: https://github.com/cloudfoundry/bosh/tree/master/bosh_cli
+
 ## Cloud Foundry V1 Legacy
 
 This repository also contains v1 legacy components. These components are not under active development and will eventually not be linked in this repository.
@@ -91,28 +96,6 @@ Questions about the Cloud Foundry Open Source Project can be directed to our Goo
 
 Bugs can be filed using Github Issues within the various repositories of the [Cloud Foundry](http://github.com/cloudfoundry) components.
 
-## OSS Contributions
+## Contributions
 
-The Cloud Foundry team uses GitHub and accepts contributions via [pull request](https://help.github.com/articles/using-pull-requests)
-
-Follow these steps to make a contribution to any of our open source repositories:
-
-1. Complete our CLA Agreement for [individuals](http://www.cloudfoundry.org/individualcontribution.pdf) or [corporations](http://www.cloudfoundry.org/corpcontribution.pdf)
-1. Set your name and email
-
-		git config --global user.name "Firstname Lastname"
-		git config --global user.email "your_email@youremail.com"
-
-1. Fork the repo
-
-1. Make your changes on a topic branch, commit, and push to github and open a pull request.
-
-Your pull request is much more likely to be accepted if:
-
-- It is small and focused with a clear commit message that conveys the intent behind your change.
-
-- The tests pass in CI (we use Travis CI for many of our components in large part because of their excellent support for pull requests).
-
-- Your pull request includes tests.
-
-We review pull requests regularly.
+Please read the [contributors' guide](https://github.com/cloudfoundry/cf-release/blob/master/CONTRIBUTING.md)

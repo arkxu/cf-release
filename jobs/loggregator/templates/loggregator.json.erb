@@ -1,0 +1,12 @@
+{
+	"Index": <%= spec.index %>,
+	"ApiHost": "<%= p("cc.srv_api_uri") %>",
+	"SystemDomain": "<%= p("system_domain") %>", 
+	"NatsHost": "<%= p("nats.address") %>",
+  	"NatsPort": <%= p("nats.port") %>,
+  	"NatsUser": "<%= p("nats.user") %>",
+  	"NatsPass": "<%= p("nats.password") %>",
+  	"VarzUser": "<%= p("loggregator.status.user") %>",
+  	"VarzPass": "<%= p("loggregator.status.password") %>",
+  	"VarzPort": <%= p("loggregator.status.port") %>
+}  

@@ -37,6 +37,8 @@ http {
     listen    9022;
     server_name  _;
     server_name_in_redirect off;
+    proxy_send_timeout          <%= p("router.client_inactivity_timeout", 300) %>;
+    proxy_read_timeout          <%= p("router.app_inactivity_timeout", 300) %>;
 
     # proxy and log all CC traffic
     location / {
@@ -47,8 +49,6 @@ http {
       proxy_set_header            X-Forwarded-For $proxy_add_x_forwarded_for;
       proxy_redirect              off;
       proxy_connect_timeout       10;
-      proxy_send_timeout          <%= p("router.client_inactivity_timeout", 300) %>;
-      proxy_read_timeout          <%= p("router.app_inactivity_timeout", 300) %>;
       proxy_pass                 http://cloud_controller;
     }
 
@@ -56,7 +56,7 @@ http {
     # nginx will serve the file root || location || foo.txt
     location /droplets/ {
       internal;
-      root   /var/vcap/shared;
+      root   <%= p("ccng.droplets.fog_connection.local_root") %>;
     }
 
 <% if p("ccng.packages.fog_connection.provider").downcase == "local" %>
@@ -64,7 +64,7 @@ http {
     # nginx will serve the file root || location || foo.txt
     location <%= "/#{p('ccng.packages.app_package_directory_key')}/" %> {
       internal;
-      root   /var/vcap/shared;
+      root   <%= p("ccng.packages.fog_connection.local_root") %>;
     }
 <% end %>
 
@@ -73,7 +73,7 @@ http {
     # nginx will serve the file root || location || foo.txt
     location <%= "/#{p('ccng.droplets.droplet_directory_key')}/" %> {
       internal;
-      root   /var/vcap/shared;
+      root   <%= p("ccng.droplets.fog_connection.local_root") %>;
     }
 <% end %>
 
@@ -104,6 +104,12 @@ http {
     }
 
     location ~ /staging/(buildpack_cache|droplets)/.*/upload {
+      
+      # Allow download the droplets and buildpacks
+      if ($request_method = GET){
+        proxy_pass http://cloud_controller;
+      }
+      
       # Pass along auth header
       set $auth_header $upstream_http_x_auth;
       proxy_set_header Authorization $auth_header;

@@ -2,7 +2,6 @@
 name: uaa
 dependencies:
 - ruby_next
-- git
 files:
 - uaa/**/*
-- tools/vcap_registrar/**/*
+- vcap-common/**/*

@@ -62,6 +62,8 @@
   router_static_ips << ip(19, 'cf1.static')
   router_static_ips << ip(20, 'cf1.static')
 
+  # TODO: this probably doesn't need its own static IP
+  loggregator_static_ip = ip(21, "cf1.static")
 -%>
 
 # ENV variables for Yeti:
@@ -112,7 +114,7 @@ networks:
 resource_pools:
 - name: small
   network: cf1
-  size: 1
+  size: <%= production? ? 1 : 2 %>
   stemcell:
     name: bosh-stemcell
     version: latest
@@ -173,7 +175,12 @@ jobs:
   template: syslog_aggregator
   instances: 1
   resource_pool: medium
+<% if production? -%>
+  persistent_disk: 500000
+<% else -%>
   persistent_disk: 100000
+<% end -%>
+
   networks:
   - name: cf1
     static_ips:
@@ -227,7 +234,13 @@ jobs:
   - name: cf1
 
 - name: dea_next
+<% if production? -%>
   template: dea_next
+<% else -%>
+  template:
+  - dea_next
+  - dea_logging_agent
+<% end -%>
   instances: <%= find('jobs.dea_next.instances') %>
   update:
     max_in_flight: <%= q("dea.update.max_in_flight", 1) %>
@@ -248,6 +261,17 @@ jobs:
   resource_pool: small
   networks:
   - name: cf1
+
+<% unless production? -%>
+- name: loggregator
+  template: loggregator
+  instances: 1
+  resource_pool: small
+  networks:
+  - name: cf1
+    static_ips:
+    - <%= loggregator_static_ip %>
+<% end -%>
 
 - name: router
   template: gorouter
@@ -420,6 +444,15 @@ properties:
       smtp_port: 587
       smtp_domain: gmail.com
 
+<% unless production? -%>
+  loggregator:
+    server: <%= loggregator_static_ip %>:3456
+    status:
+      user: <%= find("properties.loggregator.status.user") %>
+      password: <%= find("properties.loggregator.status.password") %>
+      port: 5768
+<% end -%>
+
   login:
     protocol: https
     links:
@@ -462,7 +495,7 @@ properties:
       portal:
         override: true
         scope: openid,cloud_controller.read,cloud_controller.write,password.write
-        authorities: scim.write,scim.read,cloud_controller.read,cloud_controller.write,password.write,uaa.admin,uaa.resource,cloud_controller.admin
+        authorities: scim.write,scim.read,cloud_controller.read,cloud_controller.write,password.write,uaa.admin,uaa.resource,cloud_controller.admin,billing.admin
         secret: <%= find("properties.uaa.clients.portal.secret") %>
         authorized-grant-types: authorization_code,client_credentials
         access-token-validity: 1209600
@@ -523,8 +556,6 @@ properties:
       - <%= u %>
 <% end -%>
   collector:
-    use_tsdb: false
-    use_aws_cloudwatch: false
     use_datadog: true
     datadog_api_key: <%= find('properties.template_only.datadog.datadog_api_key') %>
     datadog_application_key: <%= find('properties.template_only.datadog.datadog_application_key') %>

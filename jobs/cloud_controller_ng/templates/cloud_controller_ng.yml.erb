@@ -28,7 +28,7 @@ index: <%= spec.index %>
 
 info:
   name: <%= p("name", "vcap") %>
-  build: <%= p("build", "\"2222\"") %>
+  build: "<%= p("build", "2222") %>"
   version: <%= p("version", 2) %>
   support_address: <%= p("support_address", "http://support.cloudfoundry.com") %>
   description: <%= p("description", "Cloud Foundry sponsored by Pivotal") %>
@@ -60,13 +60,6 @@ db:
   max_connections: <%= p("ccdb_ng.max_connections", 32) %>
   pool_timeout: <%= p("ccdb_ng.pool_timeout", 10) %>
   log_level: <%= p("ccng.db_logging_level", "debug2") %>
-
-<% if_p("vcap_redis.address", "vcap_redis.port", "vcap_redis.password") do |address, port, password| %>
-redis:
-  host: <%= address %>
-  port: <%= port %>
-  password: "<%= password %>"
-<% end %>
 
 <% scheme = p("uaa.no_ssl") ? "http" : "https"
    domain = p("domain") %>
