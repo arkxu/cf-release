@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export PATH=/var/vcap/packages/ruby_next/bin:$PATH
+export PATH=/var/vcap/packages/ruby/bin:$PATH
 
 CONF_DIR=/var/vcap/jobs/router_next/config
 

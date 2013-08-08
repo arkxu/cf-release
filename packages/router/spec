@@ -1,7 +1,7 @@
 ---
 name: router
 dependencies:
-- ruby_next
+- ruby
 files:
 - router/{Gemfile,Gemfile.lock}
 - router/{bin,ext,lib}/**/*
