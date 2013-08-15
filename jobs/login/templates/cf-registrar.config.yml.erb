@@ -1,7 +1,7 @@
 ---
 logging:
   file: /var/vcap/sys/log/login/cf-registrar.log
-  <% if properties.syslog_aggregator %>
+  <% if properties.syslog_aggregator && properties.syslog_aggregator.address %>
   syslog: vcap.login_cf-registrar
   <% end %>
   level: info
@@ -10,7 +10,7 @@ uri:
   - login.<%= properties.domain %>
 host: <%= spec.networks.send(properties.networks.apps).ip %>
 index: <%= spec.index %>
-port: <%= (properties.login && properties.login.port) ? properties.login.port : 8080 %>
+port: <%= properties.login.port %>
 tags:
   component: login
 varz:

@@ -5,34 +5,34 @@ pid_filename: /var/vcap/sys/run/cloud_controller_ng/cloud_controller_ng.pid
 message_bus_uri: nats://<%= p("nats.user") %>:<%= p("nats.password") %>@<%= p("nats.address") %>:<%= p("nats.port") %>
 
 external_domain:
-  - <%= p("ccng.external_host", "ccng") %>.<%= p("domain") %>
+  - <%= p("ccng.external_host") %>.<%= p("domain") %>
   - "api.<%= p("domain") %>"
 
 system_domain_organization: <%= p("system_domain_organization") %>
 system_domain: <%= p("system_domain") %>
 app_domains: [ <%= p("app_domains").join(", ") %> ]
 
-cc_partition: <%= p("ccng.cc_partition", "ng") %>
+cc_partition: <%= p("ccng.cc_partition") %>
 
-bootstrap_admin_email: <%= p("ccng.bootstrap_admin_email", "sre@vmware.com") %>
+bootstrap_admin_email: <%= p("ccng.bootstrap_admin_email") %>
 
 bulk_api:
-  auth_user: <%= p("ccng.bulk_api_user", "bulk_api") %>
+  auth_user: <%= p("ccng.bulk_api_user") %>
   auth_password: "<%= p("ccng.bulk_api_password") %>"
 
 nginx:
-  use_nginx: <%= p("ccng.use_nginx", true) %>
+  use_nginx: <%= p("ccng.use_nginx") %>
   instance_socket: "/var/vcap/sys/run/cloud_controller_ng/cloud_controller.sock"
 
 index: <%= spec.index %>
 
 info:
-  name: <%= p("name", "vcap") %>
-  build: "<%= p("build", "2222") %>"
-  version: <%= p("version", 2) %>
-  support_address: <%= p("support_address", "http://support.cloudfoundry.com") %>
-  description: <%= p("description", "Cloud Foundry sponsored by Pivotal") %>
-  api_version: <%= p("api_version", "2.0.0") %>
+  name: <%= p("name") %>
+  build: "<%= p("build") %>"
+  version: <%= p("version") %>
+  support_address: <%= p("support_address") %>
+  description: <%= p("description") %>
+  api_version: <%= p("api_version") %>
 # TODO: put back once json schema is sorted out
 # allow_debug: false
 
@@ -50,36 +50,35 @@ logging:
   <% if_p("syslog_aggregator") do |syslog_aggregator| %>
   syslog: vcap.cloud_controller_ng
   <% end %>
-  level: <%= p("ccng.logging_level", "info") %>
-  max_retries: <%= p("ccng.logging_max_retries", 1) %>
+  level: <%= p("ccng.logging_level") %>
+  max_retries: <%= p("ccng.logging_max_retries") %>
 
 <% db = p("ccdb_ng.databases").find { |db| db["tag"] == "cc" } %>
 <% db_role = p("ccdb_ng.roles").find { |role| role["tag"] == "admin" } %>
 db:
   database: <%= p("ccdb_ng.db_scheme") == "mysql" ? "mysql2" : p("ccdb_ng.db_scheme") %>://<%= db_role["name"] %>:<%= db_role["password"] %>@<%= p("ccdb_ng.address") %>:<%= p("ccdb_ng.port") %>/<%= db["name"] %>
-  max_connections: <%= p("ccdb_ng.max_connections", 32) %>
-  pool_timeout: <%= p("ccdb_ng.pool_timeout", 10) %>
-  log_level: <%= p("ccng.db_logging_level", "debug2") %>
+  max_connections: <%= p("ccdb_ng.max_connections") %>
+  pool_timeout: <%= p("ccdb_ng.pool_timeout") %>
+  log_level: <%= p("ccng.db_logging_level") %>
 
 <% scheme = p("uaa.no_ssl") ? "http" : "https"
    domain = p("domain") %>
 
-<% login_enabled = p("login.enabled", true) %>
-<% if login_enabled %>
+<% if login_enabled = p("login.enabled", true) %>
 login:
   url: <%= p("login.url", "#{scheme}://login.#{domain}") %>
 <% end %>
 uaa:
   url: <%= p("uaa.url", "#{scheme}://uaa.#{domain}") %>
   resource_id: <%= p("ccng.uaa_resource_id") %>
-<% if_p("uaa.cc.token_secret") do |token_secret| %>
+  <% if_p("uaa.cc.token_secret") do |token_secret| %>
   symmetric_secret: "<%= token_secret %>"
-<% end %>
+  <% end %>
   verification_key: <%= p("uaa.jwt.verification_key") ? ("|\n      " + p("uaa.jwt.verification_key").gsub("\n", "\n      ")) : '~' %>
 
 # App staging parameters
 staging:
-  max_staging_runtime: <%= p("ccng.max_staging_runtime", 300) %>
+  max_staging_runtime: <%= p("ccng.max_staging_runtime") %>
   auth:
     user: <%= p("ccng.staging_upload_user") %>
     password: "<%= p("ccng.staging_upload_password") %>"
@@ -112,60 +111,60 @@ resource_pool:
   minimum_size: <%= p("ccng.resource_pool.minimum_size") %>
   maximum_size: <%= p("ccng.resource_pool.maximum_size") %>
   resource_directory_key: <%= p("ccng.resource_pool.resource_directory_key") %>
-<% if_p("ccng.resource_pool.cdn") do %>
+  <% if_p("ccng.resource_pool.cdn") do %>
   cdn:
     uri: <%= p("ccng.resource_pool.cdn.uri") %>
     key_pair_id: <%= p("ccng.resource_pool.cdn.key_pair_id") %>
     private_key: <%= p("ccng.resource_pool.cdn.private_key").inspect %>
-<% end %>
+  <% end %>
   fog_connection:
-<% if_p("ccng.resource_pool.fog_connection.provider") do |provider| %>
+  <% if_p("ccng.resource_pool.fog_connection.provider") do |provider| %>
     provider: <%= provider %>
-  <% if provider.downcase == "local" %>
+    <% if provider.downcase == "local" %>
     local_root: <%= p("ccng.resource_pool.fog_connection.local_root") %>
-  <% else %>
+    <% else %>
     aws_access_key_id: <%= p("ccng.resource_pool.fog_connection.aws_access_key_id") %>
     aws_secret_access_key: <%= p("ccng.resource_pool.fog_connection.aws_secret_access_key") %>
+    <% end %>
   <% end %>
-<% end %>
 
 packages:
   app_package_directory_key: <%= p("ccng.packages.app_package_directory_key") %>
-<% if_p("ccng.packages.cdn") do %>
+  <% if_p("ccng.packages.cdn") do %>
   cdn:
     uri: <%= p("ccng.packages.cdn.uri") %>
     key_pair_id: <%= p("ccng.packages.cdn.key_pair_id") %>
     private_key: <%= p("ccng.packages.cdn.private_key").inspect %>
-<% end %>
+  <% end %>
   fog_connection:
-<% if_p("ccng.packages.fog_connection.provider") do |provider| %>
+  <% if_p("ccng.packages.fog_connection.provider") do |provider| %>
     provider: <%= provider %>
-  <% if provider.downcase == "local" %>
+    <% if provider.downcase == "local" %>
     local_root: <%= p("ccng.packages.fog_connection.local_root") %>
-  <% else %>
+    <% else %>
     aws_access_key_id: <%= p("ccng.packages.fog_connection.aws_access_key_id") %>
     aws_secret_access_key: <%= p("ccng.packages.fog_connection.aws_secret_access_key") %>
+    <% end %>
   <% end %>
-<% end %>
 
 droplets:
   droplet_directory_key: <%= p("ccng.droplets.droplet_directory_key") %>
-<% if_p("ccng.droplets.cdn") do %>
+  <% if_p("ccng.droplets.cdn") do %>
   cdn:
     uri: <%= p("ccng.droplets.cdn.uri") %>
     key_pair_id: <%= p("ccng.droplets.cdn.key_pair_id") %>
     private_key: <%= p("ccng.droplets.cdn.private_key").inspect %>
-<% end %>
+  <% end %>
   fog_connection:
-<% if_p("ccng.droplets.fog_connection.provider") do |provider| %>
+  <% if_p("ccng.droplets.fog_connection.provider") do |provider| %>
     provider: <%= provider %>
-  <% if provider.downcase == "local" %>
+    <% if provider.downcase == "local" %>
     local_root: <%= p("ccng.droplets.fog_connection.local_root") %>
-  <% else %>
+    <% else %>
     aws_access_key_id: <%= p("ccng.droplets.fog_connection.aws_access_key_id") %>
     aws_secret_access_key: <%= p("ccng.droplets.fog_connection.aws_secret_access_key") %>
+    <% end %>
   <% end %>
-<% end %>
 
 db_encryption_key: <%= p("ccng.db_encryption_key") %>
 

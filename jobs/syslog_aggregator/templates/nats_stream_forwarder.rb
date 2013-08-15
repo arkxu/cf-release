@@ -13,6 +13,11 @@ end
 
 NATS.start(:uri => ARGV[0]) do
   NATS.subscribe(">") do |message, _, subject|
-    syslog.log(Syslog::LOG_INFO, "%f - [%s] %s", Time.now.to_f, subject, message)
+    begin
+      json = %Q[{"timestamp": #{Time.now.to_f},"subject": #{subject.inspect},"message": #{message.nil? ? 'null' : message.inspect}}]
+      syslog.log(Syslog::LOG_INFO, "%s", json)
+    rescue Exception => e
+      puts "Error logging to syslog #{e.inspect}\n  #{e.backtrace.join("\n  ")}"
+    end
   end
 end

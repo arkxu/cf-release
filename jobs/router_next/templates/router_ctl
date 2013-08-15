@@ -45,7 +45,13 @@ case $1 in
 
     echo 1 > /proc/sys/net/ipv4/tcp_tw_reuse
 
-    <% if properties.syslog_aggregator %>
+    # Allow a few more queued connections than are allowed by default
+    echo 1024 > /proc/sys/net/core/somaxconn
+
+    # Allowed number of open file descriptors
+    ulimit -n 100000
+
+    <% if properties.syslog_aggregator && properties.syslog_aggregator.address %>
     /var/vcap/packages/syslog_aggregator/setup_syslog_forwarder.sh $CONF_DIR
     <% end %>
 

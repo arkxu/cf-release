@@ -227,10 +227,6 @@ libyaml/yaml-0.1.4.tgz:
   object_id: rest/objects/4e4e78bca51e122004e4e8ec6840770511d35ffc91bd
   sha: e0e5e09192ab10a607e3da2970db492118f560f2
   size: 471759
-uaa/cloudfoundry-identity-uaa-1.4.1.war:
-  object_id: rest/objects/4e4e78bca21e122204e4e9863926b105153404ef2a6f
-  sha: f5834992f993253e54d61d3c4f6ca4cc390b641a
-  size: 21351766
 buildpack_cache/ruby-1.8.7.tgz:
   object_id: 0eb2f5a8-a840-4cda-a71c-d2d61ab5e8de
   sha: !binary |-
@@ -404,11 +400,6 @@ buildpack_cache/auto-reconfiguration-0.6.7.jar:
   sha: !binary |-
     NzI4MjI4ZjM2NDhkNjc5NzU5ZGYwNGZjZTYyMjBkNDQ2ZTVmZGQ5Zg==
   size: 708374
-login/cloudfoundry-login-server-1.2.3.war:
-  object_id: bea085f2-feca-411d-95f1-74284778bd59
-  sha: !binary |-
-    ZDU2MDAwYzc4Nzk3OTkyODMzNzE4MjkwZTdiMDRkYmQ3ZjMwYjQ0MA==
-  size: 8036310
 golang/go1.1.1.src.tar.gz:
   object_id: 668a3b49-03fd-4742-b5a8-f6a76b387106
   sha: !binary |-
@@ -435,17 +426,27 @@ ruby/ruby-1.9.3-p448.tar.gz:
     YzdmNzM2ZTNiYzFjYTFlNjYxOWE5MTIxODM3ZGQwODQwYWFkNzdjZQ==
   size: 12559260
 loggregator/deaagent.gz:
-  object_id: a9ea23d3-7b15-4bba-8b75-4939ee45ddaa
+  object_id: b11a4ce3-af5a-42ca-92f4-64dffccad059
   sha: !binary |-
-    NmFmNzRjMDQ4NjUwMzRiYmM3MTU5N2I5MDk2ZTNkNTRiNzBmNDNlNw==
-  size: 1560313
+    MDNhNWFmZDU4NzYzOTgwYWJhOGRkMTQzNWExYTdlYjQ1ZmQ1YzQwOQ==
+  size: 1655471
 loggregator/loggregator.gz:
-  object_id: 515916a6-2a3b-4e2b-82e0-eb6f659e9475
+  object_id: d28fb9cd-060c-4a49-bb87-9183ac53ef5e
   sha: !binary |-
-    NmFiMTI2MzNjYWI2Zjg3ZjkxNWZjOTI5MDNkMjU1OTU2YzBjY2U3ZQ==
-  size: 1722755
+    NWQxZjJjYTMwMDljYjBjZTc5OTAyZTI5ODU1Y2YxNjFhNWEyZWY4OQ==
+  size: 1737388
 insight_agent/insight-agent-1.9.2.SR1.tar.gz:
   object_id: f2ffcefa-c399-47cd-afbd-209b5556402a
   sha: !binary |-
     NDVlOGI1NmE0YzBmZDZjNTUzNWE3MmFjZjYyYzFjOTgyZjM3M2IxZg==
   size: 26122927
+uaa/cloudfoundry-identity-uaa-1.4.4.war:
+  object_id: 8c9a8011-674c-4573-ad89-2b164917214b
+  sha: !binary |-
+    MWUzN2U5YzhlMWMyMzdiMmZkZjhlYjE4MDJlZjk3YzNiNWViMDIyYw==
+  size: 21379371
+login/cloudfoundry-login-server-1.2.5.war:
+  object_id: 59a541e4-f79a-42af-82ac-efd575268f44
+  sha: !binary |-
+    OWFjZjBhOTUyNGUyZTZjMDMzYzEwZWYyNDcxYTk5ZjEzMDFjZjZhYQ==
+  size: 7489077
