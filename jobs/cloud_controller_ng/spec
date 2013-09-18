@@ -6,6 +6,7 @@ templates:
   mime.types: config/mime.types
   cloud_controller_ng.yml.erb: config/cloud_controller_ng.yml
   cloud_controller_ng_ctl.erb: bin/cloud_controller_ng_ctl
+  cloud_controller_jobs_ctl.erb: bin/cloud_controller_jobs_ctl
   stacks.yml.erb: config/stacks.yml
   syslog_forwarder.conf.erb: config/syslog_forwarder.conf
   iptables.conf.erb: config/iptables.conf
@@ -99,7 +100,7 @@ properties:
   default: "api"
   description: "Host part of the cloud_controller api URI, will be joined with value of 'domain'"
  ccng.cc_partition:
-  default: "ng"
+  default: "default"
   description: "Deprecated. Defines a 'partition' for the health_manager job"
  ccng.bootstrap_admin_email:
   default: "admin@example.com"
@@ -131,7 +132,7 @@ properties:
   description: "Passthru value for Steno logger"
 
  ccng.max_staging_runtime:
-  default: 300
+  default: 900
   description: "Timeout for staging a droplet"
 
  ccng.stacks:
@@ -170,7 +171,7 @@ properties:
 
  ccng.resource_pool.minimum_size:
   description: "Minimum size of a resource to add to the pool"
-  default: 0
+  default: 65536
  ccng.resource_pool.maximum_size:
   description: "Maximum size of a resource to add to the pool"
   default: 536870912
@@ -243,6 +244,29 @@ properties:
   description: "Key pair name for signed download URIs"
   default: ""
 
+ ccng.buildpacks.buildpack_directory_key:
+  description: "Directory (bucket) used store buildpacks.  It does not have be pre-created."
+  default: "cc-buildpacks"
+ ccng.buildpacks.fog_connection.provider:
+  description: "Local for buildpacks on NFS. AWS to place them in S3."
+  default: "Local"
+ ccng.buildpacks.fog_connection.aws_access_key_id:
+  description: "AWS access key used to access the buildpacks bucket"
+ ccng.buildpacks.fog_connection.aws_secret_access_key:
+  description: "AWS secret key used to access the buildpacks bucket"
+ ccng.buildpacks.fog_connection.local_root:
+  description: "The directory used as the root for the Local fog provider"
+  default: "/var/vcap/shared"
+ ccng.buildpacks.cdn.uri:
+  description: "URI for a CDN to used for buildpack downloads"
+  default: ""
+ ccng.buildpacks.cdn.private_key:
+  description: "Private key for signing download URIs"
+  default: ""
+ ccng.buildpacks.cdn.key_pair_id:
+  description: "Key pair name for signed download URIs"
+  default: ""
+
  ccdb_ng.databases:
   description:
  ccdb_ng.roles:
@@ -255,8 +279,11 @@ properties:
  ccdb_ng.port:
   description:
  ccdb_ng.max_connections:
-  default: 32
-  description:
+  default: 25
+  description: "Maximum connections for Sequel"
+ ccdb_ng.max_ar_connections:
+  default: 5
+  description: "Maximum connections for ActiveRecord"
  ccdb_ng.pool_timeout:
   default: 10
   description:
@@ -271,15 +298,19 @@ properties:
  login.url:
   description:
 
- syslog_aggregator:
-  default: vcap.cloud_controller_ng
-  description: "Tag for logging to syslog. If not defined, cc will not log to syslog"
+ syslog_aggregator.address:
+  description: "The address of the syslog_aggregator job."
+ syslog_aggregator.port:
+  description: "The port used by the syslog_aggregator job."
  uaa.jwt.verification_key:
   default: ""
   description: "ssl cert defined in the manifest by the UAA, required by the cc to communicate with UAA"
  login.enabled:
   default: true
   description: "whether use login as the authorization endpoint or not"
+
+ loggregator.router:
+  description: The url used to emit messages to the Loggregator  
 
  ccng.db_encryption_key:
   default: ""

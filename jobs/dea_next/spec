@@ -58,9 +58,6 @@ properties:
   dea_next.memory_overcommit_factor:
     description:
     default: 1
-  dea_next.num_instances:
-    description:
-    default: 30
   dea_next.stacks:
     default:
     - "lucid64"
@@ -79,4 +76,5 @@ properties:
     default: true
   syslog_aggregator:
     description: "Syslog aggregator stuff"
-
+  loggregator.router:
+    description: The url used to emit messages to the Loggregator

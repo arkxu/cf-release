@@ -26,7 +26,6 @@ update:
   canary_watch_time: 30000-600000
   update_watch_time: 30000-600000
   max_in_flight: 4
-  max_errors: 1
 
 networks:
 - name: cf1
@@ -50,7 +49,7 @@ networks:
 resource_pools:
 - name: common
   network: cf1
-  size: 8
+  size: 9
   stemcell:
     name: bosh-stemcell
     version: latest
@@ -136,6 +135,15 @@ jobs:
     static_ips:
     - <%= ip( 4, 'cf1.static') %>
 
+- name: loggregator-router
+  template: loggregatorrouter
+  instances: 1
+  resource_pool: common
+  networks:
+  - name: cf1
+    static_ips:
+    - <%= ip( 6, 'cf1.static') %>
+
 - name:  health_manager
   template: health_manager_next
   instances: 1
@@ -178,7 +186,9 @@ jobs:
 
 properties:
   loggregator:
-    server: <%= ip( 4, 'cf1.static') %>:3456
+    router: <%= ip( 6, 'cf1.static') %>:3456
+    servers: 
+    - <%= ip( 4, 'cf1.static') %>:3456
     status:
       user: sBNUxXlS0pc71wVef
       password: 7nTmaIf9vPV4mJyBe
@@ -225,24 +235,21 @@ properties:
     resource_pool:
       minimum_size: 65536
       resource_directory_key: <%= find("properties.domain").gsub(".", "-") %>-cc-resources
-      fog_connection:
+      fog_connection: &fog_connection
         provider: AWS
         aws_access_key_id: <%= find("properties.template_only.aws.access_key_id") %>
         aws_secret_access_key: <%= find("properties.template_only.aws.secret_access_key") %>
     packages:
       minimum_size: 1048576
       app_package_directory_key: <%= find("properties.domain").gsub(".", "-") %>-cc-packages
-      fog_connection:
-        provider: AWS
-        aws_access_key_id: <%= find("properties.template_only.aws.access_key_id") %>
-        aws_secret_access_key: <%= find("properties.template_only.aws.secret_access_key") %>
+      fog_connection: *fog_connection
     droplets:
       minimum_size: 1048576
       droplet_directory_key: <%= find("properties.domain").gsub(".", "-") %>-cc-droplets
-      fog_connection:
-        provider: AWS
-        aws_access_key_id: <%= find("properties.template_only.aws.access_key_id") %>
-        aws_secret_access_key: <%= find("properties.template_only.aws.secret_access_key") %>
+      fog_connection: *fog_connection
+    buildpacks:
+      buildpack_directory_key: <%= find("properties.domain").gsub(".", "-") %>-cc-buildpacks
+      fog_connection: *fog_connection
     cc_partition: default
     db_encryption_key: "b9631492f433579"
     tasks_disabled: false
@@ -269,6 +276,10 @@ properties:
   syslog_aggregator:
     address: 10.10.16.10
     port: 54321
+<% if find('properties.syslog_aggregator.relay_host') -%>
+    relay_host: <%= find("properties.syslog_aggregator.relay_host") %>
+    relay_host_port: <%= find("properties.syslog_aggregator.relay_host_port") %>
+<% end -%>
 
   login:
     protocol: http

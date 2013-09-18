@@ -1,0 +1,33 @@
+---
+name: loggregatorrouter
+templates:
+  loggregatorrouter_ctl.erb: bin/loggregatorrouter_ctl
+  loggregator_router.json.erb: config/loggregator_router.json
+packages:
+- common
+- loggregatorrouter
+properties:
+  loggregator.router:
+    description: The host and port the loggregatorrouter should listen on
+    default: 0.0.0.0:3456
+  loggregator.debug:
+    description: boolean value to turn on verbose logging for loggregator system (dea agent & loggregator server)
+    default: false
+  loggregator.servers:
+    description: an array of host and port of the loggregator servers
+  loggregator.status.user:
+    description: username used to log into varz endpoint
+  loggregator.status.password:
+    description: password used to log into varz endpoint
+  loggregator.status.port:
+    description: port used to run the varz endpoint
+  system_domain:
+    description: "Domain reserved for CF operator, base URL where the login, uaa, and other non-user apps listen"
+  nats.user:
+    description: "Username for cc client to connect to NATS"
+  nats.password:
+    description: "Password for cc client to connect to NATS"
+  nats.address:
+    description: "IP address of Cloud Foundry NATS server"
+  nats.port:
+    description: "IP port of Cloud Foundry NATS server"
